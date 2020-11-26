@@ -18,6 +18,10 @@ class OCPUAWorker(Thread):
 
     def run(self):
 
+        server = self.core.server
+
+        server.start()
+
         for updater in self.core.get_mappings():
 
             updater.start()
