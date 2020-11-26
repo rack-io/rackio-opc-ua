@@ -18,11 +18,11 @@ class OCPUAWorker(Thread):
 
     def run(self):
 
+        for updater in self.updaters:
+
+            updater.start()
+
         while True:
-
-            for updater in self.updaters:
-
-                updater.start()
 
             time.sleep(0.25)
 
