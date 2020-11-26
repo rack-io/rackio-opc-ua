@@ -18,6 +18,18 @@ class OPCUACore(Singleton):
         self.app = None
         self.port = None
 
+    def define_mapping(self, tag, mode, period=0.25):
+
+        pass
+
+    def define_device(self, device_name):
+
+        pass
+
+    def define_folder(self, folder_name):
+
+        pass
+
     def __call__(self, app=None, port=4840, period=0.25):
 
         if not app:
