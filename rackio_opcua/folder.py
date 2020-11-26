@@ -12,5 +12,5 @@ class Device:
         self.name = name
         self.server = server
         self.idx = idx
-
+        
         self._folder = server.nodes.objects.add_folder(idx, name)

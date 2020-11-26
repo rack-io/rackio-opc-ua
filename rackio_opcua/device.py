@@ -12,6 +12,5 @@ class Device:
         self.name = name
         self.server = server
         self.idx = idx
-
+        
         self._device = server.nodes.base_object_type.add_object_type(idx, name)
-    
