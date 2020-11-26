@@ -83,3 +83,5 @@ class OPCUACore(Singleton):
 
         worker = OCPUAWorker(self)
         app._start_workers = AppendWorker(app._start_workers, worker)
+
+        return self

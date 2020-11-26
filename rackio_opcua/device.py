@@ -10,13 +10,13 @@ from .updater import TagUpdater
 
 class Device:
 
-    def __init__(self, name, server, idx):
+    def __init__(self, name, folder, idx):
 
         self.name = name
-        self.server = server
+        self.folder = folder
         self.idx = idx
 
-        self._device = server.nodes.base_object_type.add_object_type(idx, name)
+        self._device = folder.add_object(idx, name)
 
         self.mappings = list()
 

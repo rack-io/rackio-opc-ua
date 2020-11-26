@@ -21,10 +21,10 @@ class Folder:
 
     def define_device(self, name):
 
-        server = self.server
+        folder = self._folder
         idx = self.idx
 
-        device = Device(name, server, idx)
+        device = Device(name, folder, idx)
 
         self.devices.append(device)
 
