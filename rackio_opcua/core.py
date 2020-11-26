@@ -8,6 +8,8 @@ import json
 
 from ._singleton import Singleton
 
+from opcua import ua, uamethod, Server
+
 
 class OPCUACore(Singleton):
 
@@ -17,6 +19,10 @@ class OPCUACore(Singleton):
 
         self.app = None
         self.port = None
+        self.server = None
+
+        self.folders = dict()
+        self.devices = dict()
 
     def define_mapping(self, tag, mode, period=0.25):
 
@@ -30,7 +36,21 @@ class OPCUACore(Singleton):
 
         pass
 
-    def __call__(self, app=None, port=4840, period=0.25):
+    def __call__(self, app=None, name="Rackio OPC-UA Server", port=4840, period=0.25):
+
+        self.server = Server()
+        endpoint = "opc.tcp://0.0.0.0:{}/rackio/server/".format(port)
+        
+        self.server.set_endpoint(endpoint)
+        self.server.set_server_name(name)
+
+        self.server.set_security_policy([
+            ua.SecurityPolicyType.NoSecurity,
+            ua.SecurityPolicyType.Basic256Sha256_SignAndEncrypt,
+            ua.SecurityPolicyType.Basic256Sha256_Sign])
+
+        uri = "http://examples.freeopcua.github.io"
+        self.idx = self.server.register_namespace(uri)
 
         if not app:
             return self
@@ -38,3 +58,5 @@ class OPCUACore(Singleton):
         self.period = period
         
         self.app = app
+
+        return self
