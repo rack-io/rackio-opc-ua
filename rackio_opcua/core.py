@@ -49,7 +49,7 @@ class OPCUACore(Singleton):
             ua.SecurityPolicyType.Basic256Sha256_SignAndEncrypt,
             ua.SecurityPolicyType.Basic256Sha256_Sign])
 
-        uri = "http://examples.freeopcua.github.io"
+        uri = "http://github.com/rack-io/rackio-opc-ua"
         self.idx = self.server.register_namespace(uri)
 
         if not app:

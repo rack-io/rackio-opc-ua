@@ -5,9 +5,9 @@ This module implements the folder class for RackioOPCUA.
 """
 
 from .updater import TagUpdater
+from .device import Device
 
-
-class Device:
+class Folder:
 
     def __init__(self, name, server, idx):
 
@@ -17,9 +17,16 @@ class Device:
 
         self._folder = server.nodes.objects.add_folder(idx, name)
 
-        self.mappings = list()
+        self.devices = list()
 
-    def define_mapping(self, tag, mode, period=0.25):
-        
-        pass
+    def define_device(self, name):
+
+        server = self.server
+        idx = self.idx
+
+        device = Device(name, server, idx)
+
+        self.devices.append(device)
+
+        return device
     
