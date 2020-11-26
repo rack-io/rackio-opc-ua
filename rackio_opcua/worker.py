@@ -8,11 +8,11 @@ import time
 from threading import Thread
 
 
-class SocketWorker(Thread):
+class OCPUAWorker(Thread):
 
     def __init__(self, updaters, *args, **kwargs):
 
-        super(SocketWorker, self).__init__(*args, **kwargs)
+        super(OCPUAWorker, self).__init__(*args, **kwargs)
 
         self.updaters = updaters
 

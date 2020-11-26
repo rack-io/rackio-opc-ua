@@ -4,6 +4,8 @@
 This module implements the folder class for RackioOPCUA.
 """
 
+from .updater import TagUpdater
+
 
 class Device:
 
@@ -18,6 +20,6 @@ class Device:
         self.mappings = list()
 
     def define_mapping(self, tag, mode, period=0.25):
-
+        
         pass
     
