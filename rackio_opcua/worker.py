@@ -10,15 +10,15 @@ from threading import Thread
 
 class OCPUAWorker(Thread):
 
-    def __init__(self, updaters, *args, **kwargs):
+    def __init__(self, core, *args, **kwargs):
 
         super(OCPUAWorker, self).__init__(*args, **kwargs)
 
-        self.updaters = updaters
+        self.core = core
 
     def run(self):
 
-        for updater in self.updaters:
+        for updater in self.core.get_mappings():
 
             updater.start()
 

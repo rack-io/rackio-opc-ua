@@ -10,6 +10,8 @@ from ._singleton import Singleton
 from .folder import Folder
 from .worker import OCPUAWorker
 
+from .decorator import AppendWorker
+
 from opcua import ua, uamethod, Server
 
 
@@ -46,6 +48,16 @@ class OPCUACore(Singleton):
 
         return folder
 
+    def get_mappings(self):
+
+        result = list()
+
+        for _, folder in self.folders.items():
+
+            result += folder.get_mappings()
+
+        return result
+
     def __call__(self, app=None, name="Rackio OPC-UA Server", port=4840, period=0.25):
 
         if not app:
@@ -68,3 +80,6 @@ class OPCUACore(Singleton):
         self.period = period
         
         self.app = app
+
+        worker = OCPUAWorker(self)
+        app._start_workers = AppendWorker(app._start_workers, worker)
