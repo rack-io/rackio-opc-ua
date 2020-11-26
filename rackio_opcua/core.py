@@ -7,6 +7,8 @@ This module implements the core app class and methods for Rackio OPC-UA.
 import json
 
 from ._singleton import Singleton
+from .folder import Folder
+from .worker import OCPUAWorker
 
 from opcua import ua, uamethod, Server
 
@@ -20,23 +22,34 @@ class OPCUACore(Singleton):
         self.app = None
         self.port = None
         self.server = None
+        self.idx = None
+        self.worker = None
 
         self.folders = dict()
-        self.devices = dict()
 
     def define_mapping(self, tag, mode, period=0.25):
 
         pass
 
-    def define_device(self, device_name):
+    def define_device(self, device_name, folder_name="Default"):
 
         pass
 
     def define_folder(self, folder_name):
 
-        pass
+        server = self.server
+        idx = self.idx
+
+        folder = Folder(folder_name, server, idx)
+
+        self.folders[folder_name] = folder
+
+        return folder
 
     def __call__(self, app=None, name="Rackio OPC-UA Server", port=4840, period=0.25):
+
+        if not app:
+            return self
 
         self.server = Server()
         endpoint = "opc.tcp://0.0.0.0:{}/rackio/server/".format(port)
@@ -52,11 +65,6 @@ class OPCUACore(Singleton):
         uri = "http://github.com/rack-io/rackio-opc-ua"
         self.idx = self.server.register_namespace(uri)
 
-        if not app:
-            return self
-
         self.period = period
         
         self.app = app
-
-        return self

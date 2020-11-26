@@ -29,4 +29,14 @@ class Folder:
         self.devices.append(device)
 
         return device
+
+    def get_mappings(self):
+
+        result = list()
+
+        for device in self.devices:
+
+            result += device.get_mappings()
+
+        return result
     

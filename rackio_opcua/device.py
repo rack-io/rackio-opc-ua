@@ -33,4 +33,9 @@ class Device:
 
         mapping = TagUpdater(opc_var, tag, mode, period)
         self.mappings.append(mapping)
-        
+
+    def get_mappings(self):
+
+        return self.mappings
+
+    
