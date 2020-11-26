@@ -12,5 +12,11 @@ class Device:
         self.name = name
         self.server = server
         self.idx = idx
-        
+
         self._device = server.nodes.base_object_type.add_object_type(idx, name)
+
+        self.mappings = list()
+
+    def define_mapping(self, tag, mode, period=0.25):
+
+        pass
