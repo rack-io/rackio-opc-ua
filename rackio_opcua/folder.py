@@ -3,6 +3,7 @@
 
 This module implements the folder class for RackioOPCUA.
 """
+from rackio import TagEngine
 
 from .updater import TagUpdater
 from .device import Device
@@ -18,6 +19,7 @@ class Folder:
         self._folder = server.nodes.objects.add_folder(idx, name)
 
         self.devices = list()
+        self.mappings = list()
 
     def define_device(self, name):
 
@@ -30,9 +32,23 @@ class Folder:
 
         return device
 
+    def define_mapping(self, tag, mode, period=0.25):
+
+        dev = self._folder
+        idx = self.idx
+
+        engine = TagEngine()
+
+        value = engine.read_tag(tag)
+
+        opc_var = dev.add_variable(idx, tag, value)
+
+        mapping = TagUpdater(opc_var, tag, mode, period)
+        self.mappings.append(mapping)
+
     def get_mappings(self):
 
-        result = list()
+        result = self.mappings
 
         for device in self.devices:
 

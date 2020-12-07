@@ -52,6 +52,7 @@ class TagUpdater(Thread):
 
         value = self.opc_var.get_value()
         self.engine.write_tag(self.tag, value)
+        self.read()
 
     def stop(self):
         self._stopev = True
