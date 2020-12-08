@@ -18,8 +18,20 @@ class Folder:
 
         self._folder = server.nodes.objects.add_folder(idx, name)
 
+        self.folders = list()
         self.devices = list()
         self.mappings = list()
+    
+    def define_folder(self, folder_name):
+
+        server = self.server
+        idx = self.idx
+
+        folder = Folder(folder_name, server, idx)
+
+        self.folders.append(folder)
+
+        return folder
 
     def define_device(self, name):
 
@@ -49,6 +61,10 @@ class Folder:
     def get_mappings(self):
 
         result = self.mappings
+        
+        for folder in self.folders:
+
+            result += folder.get_mappings()
 
         for device in self.devices:
 

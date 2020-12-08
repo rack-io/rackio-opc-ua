@@ -10,15 +10,27 @@ from .updater import TagUpdater
 
 class Device:
 
-    def __init__(self, name, folder, idx):
+    def __init__(self, name, obj, idx):
 
         self.name = name
-        self.folder = folder
+        self.obj = obj
         self.idx = idx
 
-        self._device = folder.add_object(idx, name)
+        self._device = obj.add_object(idx, name)
 
         self.mappings = list()
+        self.devices = list()
+
+    def define_device(self, name):
+
+        obj = self._device
+        idx = self.idx
+
+        device = Device(name, obj, idx)
+
+        self.devices.append(device)
+
+        return device
 
     def define_mapping(self, tag, mode, period=0.25):
 
@@ -36,6 +48,11 @@ class Device:
 
     def get_mappings(self):
 
-        return self.mappings
+        result = self.mappings
+
+        for device in self.devices:
+            result += device.get_mappings()
+        
+        return result
 
     
