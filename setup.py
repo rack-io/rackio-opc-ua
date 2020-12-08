@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="RackioOPC-UA",
-    version="0.3",
+    version="0.4",
     author="Nelson Carrasquel",
     author_email="rackio.framework@outlook.com",
     description="A Rackio extension to add a OPC-UA support",

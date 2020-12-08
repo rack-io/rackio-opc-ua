@@ -29,14 +29,6 @@ class OPCUACore(Singleton):
 
         self.folders = dict()
 
-    def define_mapping(self, tag, mode, period=0.25):
-
-        pass
-
-    def define_device(self, device_name, folder_name="Default"):
-
-        pass
-
     def define_folder(self, folder_name):
 
         server = self.server
@@ -58,16 +50,16 @@ class OPCUACore(Singleton):
 
         return result
 
-    def __call__(self, app=None, name="Rackio OPC-UA Server", port=4840, period=0.25):
+    def __call__(self, app=None, name="rackio", description="Rackio OPC-UA Server", port=4840, period=0.25):
 
         if not app:
             return self
 
         self.server = Server()
-        endpoint = "opc.tcp://0.0.0.0:{}/rackio/server/".format(port)
+        endpoint = "opc.tcp://0.0.0.0:{}/{}/server".format(port, name)
         
         self.server.set_endpoint(endpoint)
-        self.server.set_server_name(name)
+        self.server.set_server_name(description)
 
         self.server.set_security_policy([
             ua.SecurityPolicyType.NoSecurity,
