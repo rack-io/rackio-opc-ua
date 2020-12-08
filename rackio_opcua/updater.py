@@ -22,6 +22,8 @@ class TagUpdater(Thread):
         self._period = period
         self.last = None
 
+        self.daemon = True
+
     def set_var(self):
 
         if self.mode == "write":
