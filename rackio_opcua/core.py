@@ -50,7 +50,7 @@ class OPCUACore(Singleton):
 
         return result
 
-    def __call__(self, app=None, name="rackio", description="Rackio OPC-UA Server", port=4840, period=0.25):
+    def __call__(self, app=None, name="rackio", description="Rackio OPC-UA Server", port=4840):
 
         if not app:
             return self
@@ -68,8 +68,6 @@ class OPCUACore(Singleton):
 
         uri = "http://github.com/rack-io/rackio-opc-ua"
         self.idx = self.server.register_namespace(uri)
-
-        self.period = period
         
         self.app = app
 
