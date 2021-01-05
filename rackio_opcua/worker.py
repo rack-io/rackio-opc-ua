@@ -21,22 +21,35 @@ class OCPUAWorker(Thread):
 
         self._stop = True
 
+    def restart(self):
+
+        self.stop_updaters()
+        self.start_updaters()
+
+    def start_updaters(self):
+
+        for updater in self.core.get_mappings():
+
+            updater.start()
+
+    def stop_updaters(self):
+
+        for updater in self.core.get_mappings():
+
+            updater.stop()
+
     def run(self):
 
         server = self.core.server
 
         server.start()
 
-        for updater in self.core.get_mappings():
-
-            updater.start()
+        self.start_updaters()
 
         while not self._stop:
 
             time.sleep(0.25)
 
-        for updater in self.core.get_mappings():
-
-            updater.stop()
+        self.stop_updaters()
 
         server.stop()
