@@ -50,7 +50,7 @@ class OPCUACore(Singleton):
 
         return result
 
-    def __call__(self, app=None, name="rackio", description="Rackio OPC-UA Server", port=4840):
+    def __call__(self, app=None, coldstart=False, name="rackio", description="Rackio OPC-UA Server", port=4840):
 
         if not app:
             return self
@@ -72,6 +72,12 @@ class OPCUACore(Singleton):
         self.app = app
 
         self.worker = OCPUAWorker(self)
-        app._start_workers = AppendWorker(app._start_workers, self.worker)
+        
+        if not coldstart:
+            app._start_workers = AppendWorker(app._start_workers, self.worker)
 
         return self
+
+    def run(self):
+
+        self.worker.start()
