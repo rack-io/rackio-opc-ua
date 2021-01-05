@@ -81,3 +81,11 @@ class OPCUACore(Singleton):
     def run(self):
 
         self.worker.start()
+
+    def stop(self):
+
+        self.worker.stop()
+
+    def restart(self):
+
+        self.worker.restart()

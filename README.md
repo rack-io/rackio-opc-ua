@@ -15,7 +15,7 @@ from rackio_opcua import RackioOPCUA
 
 app = Rackio()
 
-driver = RackioOPCUA(app, 4840)
+driver = RackioOPCUA(app, port=4840)
 
 app.run(8028)
 ```
@@ -44,6 +44,26 @@ device.define_mapping("T1", "read", period=0.5)
 ```
 
 You can also define mappings inside folders and can define folders inside folders.
+
+## Server address
+
+Once the OPC-UA server is up and running, you can browse its tre with a OPC-UA Cliente in the following addres:
+
+```
+opc.tcp://0.0.0.0:4840/rackio/server
+```
+
+You can override the server port and server name as following.
+
+```python
+driver = RackioOPCUA(app, name="sensor", port=4545)
+```
+
+Which will have the following address:
+
+```
+opc.tcp://0.0.0.0:4545/sensor/server
+```
 
 ## Features to develop
 
